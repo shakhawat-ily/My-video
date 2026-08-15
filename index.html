@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>My Video Site</title>
 
     <link rel="stylesheet" href="style.css">
@@ -10,51 +11,110 @@
 
 <body>
 
-    <header class="site-header">
-        <div class="header-inner">
+<header class="site-header">
 
-            <a href="index.html" class="logo">
-                My Video Site
-            </a>
+    <div class="header-inner">
 
-            <nav>
-                <a href="index.html">Home</a>
-                <a href="admin.html">Admin</a>
-            </nav>
+        <a href="index.html" class="logo" id="siteLogo">
+            My Video Site
+        </a>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="page1.html">Page 1</a>
+            <a href="page2.html">Page 2</a>
+        </nav>
+
+    </div>
+
+</header>
+
+
+<main>
+
+    <!-- HERO -->
+
+    <section
+        id="heroSection"
+        class="hero-section"
+    >
+
+        <div class="hero-content">
+
+            <h1 id="heroTitle">
+                Welcome
+            </h1>
+
+            <p id="heroDescription">
+                Watch our latest content.
+            </p>
 
         </div>
-    </header>
+
+    </section>
 
 
-    <main>
+    <!-- FEATURED -->
 
-        <section class="hero">
-            <h1>My Video Site</h1>
-            <p>Watch our latest videos</p>
-        </section>
+    <section class="content-section">
 
+        <div class="section-header">
 
-        <section class="video-section">
+            <h2>
+                Featured
+            </h2>
 
-            <h2>Videos</h2>
+        </div>
 
-            <div id="videoList">
-                <p>Loading videos...</p>
-            </div>
+        <div
+            id="featuredGrid"
+            class="content-grid"
+        ></div>
 
-        </section>
-
-    </main>
-
-
-    <footer>
-        <p>© 2026 My Video Site</p>
-    </footer>
+    </section>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="config.js"></script>
-    <script src="app.js"></script>
+    <!-- LATEST -->
+
+    <section class="content-section">
+
+        <div class="section-header">
+
+            <h2>
+                Latest Content
+            </h2>
+
+        </div>
+
+        <div
+            id="contentGrid"
+            class="content-grid"
+        ></div>
+
+        <button
+            id="nextPageButton"
+            class="next-button"
+        >
+            Next
+        </button>
+
+    </section>
+
+</main>
+
+
+<footer class="site-footer">
+
+    <p id="footerText">
+        © 2026 My Video Site
+    </p>
+
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="app.js"></script>
 
 </body>
 </html>
