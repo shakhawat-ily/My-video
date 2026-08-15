@@ -1,0 +1,264 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    color: #222;
+    min-height: 100vh;
+}
+
+
+/* Header */
+
+.site-header {
+    background: #111827;
+    color: white;
+}
+
+.header-inner {
+    max-width: 1100px;
+    margin: auto;
+    padding: 18px 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    color: white;
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+nav {
+    display: flex;
+    gap: 20px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+}
+
+
+/* Hero */
+
+.hero {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 70px 20px;
+
+    background: white;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 42px;
+    margin-bottom: 12px;
+}
+
+.hero p {
+    color: #666;
+    font-size: 18px;
+}
+
+
+/* Videos */
+
+.video-section {
+    max-width: 1100px;
+    margin: auto;
+    padding: 20px;
+}
+
+.video-section h2 {
+    margin-bottom: 20px;
+}
+
+#videoList {
+    display: grid;
+    gap: 20px;
+}
+
+.video-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+}
+
+.video-card h3 {
+    margin-bottom: 10px;
+}
+
+.video-card p {
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.watch-button {
+    display: inline-block;
+    padding: 12px 20px;
+
+    background: #2563eb;
+    color: white;
+
+    text-decoration: none;
+    border-radius: 8px;
+}
+
+
+/* Video Page */
+
+.video-page {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+#videoPlayer {
+    width: 100%;
+    max-height: 700px;
+    background: black;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.video-description {
+    margin-bottom: 25px;
+    color: #555;
+}
+
+
+/* Navigation buttons */
+
+.next-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.next-buttons button {
+    padding: 14px 25px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #2563eb;
+    color: white;
+
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.next-buttons button:disabled {
+    background: #aaa;
+    cursor: not-allowed;
+}
+
+
+/* Admin */
+
+.admin-container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+.admin-box {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+}
+
+.admin-box h1,
+.admin-box h2 {
+    margin-bottom: 20px;
+}
+
+.admin-box input,
+.admin-box textarea {
+    width: 100%;
+    padding: 13px;
+
+    margin: 8px 0 18px;
+
+    border: 1px solid #ddd;
+    border-radius: 7px;
+
+    font-size: 15px;
+}
+
+.admin-box textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.admin-box button {
+    padding: 12px 20px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: #2563eb;
+    color: white;
+
+    cursor: pointer;
+}
+
+.admin-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.admin-video-item {
+    padding: 15px 0;
+
+    border-bottom: 1px solid #ddd;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.delete-button {
+    background: #dc2626 !important;
+}
+
+
+/* Footer */
+
+footer {
+    margin-top: 60px;
+    padding: 25px;
+
+    text-align: center;
+
+    background: #111827;
+    color: white;
+}
+
+
+/* Mobile */
+
+@media (max-width: 650px) {
+
+    .header-inner {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .hero {
+        margin: 20px;
+        padding: 50px 15px;
+    }
+
+    .
