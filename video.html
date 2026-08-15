@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Video</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <div class="header-inner">
+
+            <a href="index.html" class="logo">
+                My Video Site
+            </a>
+
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="admin.html">Admin</a>
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <section class="video-page">
+
+            <h1 id="videoTitle">
+                Loading...
+            </h1>
+
+
+            <video
+                id="videoPlayer"
+                controls
+                playsinline
+            ></video>
+
+
+            <p
+                id="videoDescription"
+                class="video-description"
+            ></p>
+
+
+            <div class="next-buttons">
+
+                <button id="previousButton">
+                    ← Previous
+                </button>
+
+                <button id="nextButton">
+                    Next →
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+        <p>© 2026 My Video Site</p>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="video.js"></script>
+
+</body>
+</html>
