@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
+
+    <title>Admin Control Panel</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -11,74 +13,290 @@
 
 <header class="site-header">
     <div class="header-inner">
-        <a href="index.html" class="logo">My Video Site</a>
+
+        <a href="index.html" class="logo">
+            My Video Site
+        </a>
 
         <nav>
             <a href="index.html">Website</a>
         </nav>
+
     </div>
 </header>
 
+
 <main class="admin-container">
 
+    <!-- LOGIN -->
+
     <section id="loginBox" class="admin-box">
+
         <h1>Admin Login</h1>
 
         <form id="loginForm">
-            <input id="email" type="email" placeholder="Email" required>
-            <input id="password" type="password" placeholder="Password" required>
 
-            <button type="submit">Login</button>
+            <input
+                id="email"
+                type="email"
+                placeholder="Email"
+                required
+            >
+
+            <input
+                id="password"
+                type="password"
+                placeholder="Password"
+                required
+            >
+
+            <button type="submit">
+                Login
+            </button>
+
         </form>
 
         <p id="loginMessage"></p>
+
     </section>
 
-    <section id="adminPanel" class="admin-box" style="display:none;">
+
+    <!-- ADMIN PANEL -->
+
+    <section
+        id="adminPanel"
+        class="admin-box"
+        style="display:none;"
+    >
 
         <div class="admin-top">
-            <h1>Admin Panel</h1>
-            <button id="logoutButton">Logout</button>
+
+            <div>
+                <h1>Admin Control Panel</h1>
+                <p id="adminEmail"></p>
+            </div>
+
+            <button id="logoutButton">
+                Logout
+            </button>
+
         </div>
 
-        <h2>Upload Video</h2>
 
-        <form id="uploadForm">
+        <!-- DASHBOARD -->
 
-            <input
-                id="videoTitle"
-                type="text"
-                placeholder="Video title"
-                required
-            >
+        <div class="dashboard-grid">
 
-            <textarea
-                id="videoDescription"
-                placeholder="Description"
-            ></textarea>
+            <div class="dashboard-card">
+                <strong id="totalCount">0</strong>
+                <span>Total</span>
+            </div>
 
-            <input
-                id="videoFile"
-                type="file"
-                accept="video/*"
-                required
-            >
+            <div class="dashboard-card">
+                <strong id="videoCount">0</strong>
+                <span>Videos</span>
+            </div>
 
-            <button type="submit">Upload & Publish</button>
+            <div class="dashboard-card">
+                <strong id="photoCount">0</strong>
+                <span>Photos</span>
+            </div>
 
-        </form>
+            <div class="dashboard-card">
+                <strong id="featuredCount">0</strong>
+                <span>Featured</span>
+            </div>
 
-        <p id="uploadMessage"></p>
+        </div>
 
-        <hr>
 
-        <h2>Uploaded Videos</h2>
+        <!-- UPLOAD -->
 
-        <div id="adminVideoList"></div>
+        <section class="panel-section">
+
+            <h2>Upload Content</h2>
+
+            <form id="uploadForm">
+
+                <label>Title</label>
+
+                <input
+                    id="contentTitle"
+                    type="text"
+                    placeholder="Content title"
+                    required
+                >
+
+
+                <label>Description</label>
+
+                <textarea
+                    id="contentDescription"
+                    placeholder="Description"
+                ></textarea>
+
+
+                <label>Content Type</label>
+
+                <select id="mediaType">
+
+                    <option value="video">
+                        Video
+                    </option>
+
+                    <option value="photo">
+                        Photo
+                    </option>
+
+                </select>
+
+
+                <label>Content File</label>
+
+                <input
+                    id="contentFile"
+                    type="file"
+                    accept="video/*,image/*"
+                    required
+                >
+
+
+                <label>Custom Thumbnail</label>
+
+                <input
+                    id="thumbnailFile"
+                    type="file"
+                    accept="image/*"
+                >
+
+                <small>
+                    Leave empty to automatically create a thumbnail from the video.
+                </small>
+
+
+                <label class="checkbox-row">
+
+                    <input
+                        id="featured"
+                        type="checkbox"
+                    >
+
+                    Featured Content
+
+                </label>
+
+
+                <button type="submit">
+                    Upload & Publish
+                </button>
+
+            </form>
+
+            <p id="uploadMessage"></p>
+
+        </section>
+
+
+        <!-- SITE SETTINGS -->
+
+        <section class="panel-section">
+
+            <h2>Website Settings</h2>
+
+            <form id="settingsForm">
+
+                <label>Website Name</label>
+
+                <input
+                    id="siteName"
+                    type="text"
+                    placeholder="Website name"
+                >
+
+
+                <label>Homepage Title</label>
+
+                <input
+                    id="heroTitle"
+                    type="text"
+                    placeholder="Homepage title"
+                >
+
+
+                <label>Homepage Description</label>
+
+                <textarea
+                    id="heroDescription"
+                    placeholder="Homepage description"
+                ></textarea>
+
+
+                <label>Footer Text</label>
+
+                <input
+                    id="footerText"
+                    type="text"
+                    placeholder="Footer text"
+                >
+
+
+                <label>Logo</label>
+
+                <input
+                    id="logoFile"
+                    type="file"
+                    accept="image/*"
+                >
+
+
+                <label class="checkbox-row">
+
+                    <input
+                        id="showHero"
+                        type="checkbox"
+                    >
+
+                    Show Homepage Hero
+
+                </label>
+
+
+                <button type="submit">
+                    Save Website Settings
+                </button>
+
+            </form>
+
+            <p id="settingsMessage"></p>
+
+        </section>
+
+
+        <!-- CONTENT MANAGEMENT -->
+
+        <section class="panel-section">
+
+            <div class="admin-section-header">
+
+                <h2>Content Management</h2>
+
+                <button id="refreshButton">
+                    Refresh
+                </button>
+
+            </div>
+
+
+            <div id="contentList">
+                Loading...
+            </div>
+
+        </section>
 
     </section>
 
 </main>
+
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
