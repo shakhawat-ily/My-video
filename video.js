@@ -1,106 +1,301 @@
-const { createClient } = supabase;
-
-const client = createClient(
+const client = supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
 );
 
-const params = new URLSearchParams(
-    window.location.search
-);
 
-const currentId = Number(
-    params.get("id")
-);
-
-let videos = [];
-let currentIndex = -1;
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
 
 
-async function loadVideos() {
+const contentId =
+    params.get("id");
 
-    const { data, error } = await client
+
+const container =
+    document.getElementById(
+        "contentContainer"
+    );
+
+
+function getFileUrl(path) {
+
+    if (!path) {
+        return "";
+    }
+
+    const {
+        data
+    } = client.storage
         .from("videos")
-        .select("*")
-        .order("created_at", {
-            ascending: true
-        });
+        .getPublicUrl(path);
 
-    if (error) {
-
-        document.getElementById("videoTitle")
-            .textContent = "Unable to load video.";
-
-        console.error(error);
-
-        return;
-    }
-
-    videos = data || [];
-
-    currentIndex = videos.findIndex(function(video) {
-        return Number(video.id) === currentId;
-    });
-
-
-    if (currentIndex === -1) {
-
-        document.getElementById("videoTitle")
-            .textContent = "Video not found.";
-
-        return;
-    }
-
-    showCurrentVideo();
+    return data.publicUrl;
 }
 
 
-async function showCurrentVideo() {
+/* -------------------------
+   SITE SETTINGS
+------------------------- */
 
-    const video = videos[currentIndex];
+async function loadSettings() {
 
-    document.getElementById("videoTitle")
-        .textContent = video.title;
+    const {
+        data
+    } = await client
+        .from("site_settings")
+        .select("*")
+        .eq("id", 1)
+        .maybeSingle();
 
-    document.getElementById("videoDescription")
-        .textContent = video.description || "";
+
+    if (!data) {
+        return;
+    }
 
 
-    const { data, error } = await client
-        .storage
+    document.title =
+        data.site_name ||
+        "My Video Site";
+
+
+    document.getElementById(
+        "siteLogo"
+    ).textContent =
+        data.site_name ||
+        "My Video Site";
+
+
+    document.getElementById(
+        "footerText"
+    ).textContent =
+        data.footer_text ||
+        "";
+
+}
+
+
+/* -------------------------
+   LOAD CONTENT
+------------------------- */
+
+async function loadContent() {
+
+    if (!contentId) {
+
+        container.innerHTML =
+            "<p>Content not found.</p>";
+
+        return;
+    }
+
+
+    const {
+        data: item,
+        error
+    } = await client
         .from("videos")
-        .createSignedUrl(
-            video.file_path,
-            3600
+        .select("*")
+        .eq("id", contentId)
+        .eq("published", true)
+        .maybeSingle();
+
+
+    if (error) {
+
+        console.error(error);
+
+        container.innerHTML =
+            "<p>Could not load content.</p>";
+
+        return;
+    }
+
+
+    if (!item) {
+
+        container.innerHTML =
+            "<p>Content not found.</p>";
+
+        return;
+    }
+
+
+    container.innerHTML = "";
+
+
+    const title =
+        document.createElement("h1");
+
+
+    title.textContent =
+        item.title;
+
+
+    container.appendChild(title);
+
+
+    if (
+        item.media_type ===
+        "photo"
+    ) {
+
+        const image =
+            document.createElement("img");
+
+
+        image.src =
+            getFileUrl(
+                item.file_path
+            );
+
+
+        image.alt =
+            item.title;
+
+
+        image.className =
+            "single-media";
+
+
+        container.appendChild(
+            image
+        );
+
+    }
+
+
+    else {
+
+        const video =
+            document.createElement("video");
+
+
+        video.controls = true;
+
+        video.playsInline = true;
+
+        video.preload = "metadata";
+
+
+        video.className =
+            "single-media";
+
+
+        video.src =
+            getFileUrl(
+                item.file_path
+            );
+
+
+        if (item.thumbnail_path) {
+
+            video.poster =
+                getFileUrl(
+                    item.thumbnail_path
+                );
+
+        }
+
+
+        container.appendChild(
+            video
+        );
+
+    }
+
+
+    if (item.description) {
+
+        const description =
+            document.createElement("p");
+
+
+        description.className =
+            "content-description";
+
+
+        description.textContent =
+            item.description;
+
+
+        container.appendChild(
+            description
+        );
+
+    }
+
+
+    await setupNavigation(
+        item
+    );
+
+}
+
+
+/* -------------------------
+   PREVIOUS / NEXT
+------------------------- */
+
+async function setupNavigation(
+    current
+) {
+
+    const {
+        data
+    } = await client
+        .from("videos")
+        .select(
+            "id,title,created_at,sort_order"
+        )
+        .eq("published", true)
+        .order(
+            "sort_order",
+            {
+                ascending: true
+            }
+        )
+        .order(
+            "created_at",
+            {
+                ascending: false
+            }
         );
 
 
-    if (error) {
-
-        console.error(error);
-
-        document.getElementById("videoTitle")
-            .textContent = "Unable to load video.";
-
+    if (!data) {
         return;
     }
 
 
-    const player =
-        document.getElementById("videoPlayer");
+    const index =
+        data.findIndex(
+            item =>
+                item.id ===
+                current.id
+        );
 
-    player.src = data.signedUrl;
 
-    updateButtons();
-}
+    const previous =
+        index > 0
+            ? data[index - 1]
+            : null;
 
 
-function updateButtons() {
+    const next =
+        index <
+        data.length - 1
+            ? data[index + 1]
+            : null;
+
 
     const previousButton =
         document.getElementById(
             "previousButton"
         );
+
 
     const nextButton =
         document.getElementById(
@@ -108,48 +303,61 @@ function updateButtons() {
         );
 
 
-    previousButton.disabled =
-        currentIndex <= 0;
+    if (previous) {
+
+        previousButton.onclick =
+            function() {
+
+                window.location.href =
+                    "video.html?id=" +
+                    encodeURIComponent(
+                        previous.id
+                    );
+
+            };
+
+    }
+
+    else {
+
+        previousButton.disabled =
+            true;
+
+    }
 
 
-    nextButton.disabled =
-        currentIndex >= videos.length - 1;
+    if (next) {
+
+        nextButton.onclick =
+            function() {
+
+                window.location.href =
+                    "video.html?id=" +
+                    encodeURIComponent(
+                        next.id
+                    );
+
+            };
+
+    }
+
+    else {
+
+        nextButton.disabled =
+            true;
+
+    }
+
 }
 
 
-document
-    .getElementById("nextButton")
-    .addEventListener("click", function() {
+async function init() {
 
-        if (
-            currentIndex <
-            videos.length - 1
-        ) {
+    await loadSettings();
 
-            const nextVideo =
-                videos[currentIndex + 1];
+    await loadContent();
 
-            window.location.href =
-                "video.html?id=" +
-                nextVideo.id;
-        }
-    });
+}
 
 
-document
-    .getElementById("previousButton")
-    .addEventListener("click", function() {
-
-        if (currentIndex > 0) {
-
-            const previousVideo =
-                videos[currentIndex - 1];
-
-            window.location.href =
-                "video.html?id=" +
-                previousVideo.id;
-        }
-    });
-
-
-loadVideos();
+init();
