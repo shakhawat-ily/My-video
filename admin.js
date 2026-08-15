@@ -69,13 +69,13 @@ document
 
         if (error) {
 
-            message.textContent =
-                "Login failed.";
+    message.textContent =
+        "Login failed: " + error.message;
 
-            console.error(error);
+    console.error("Supabase Error:", error);
 
-            return;
-        }
+    return;
+}
 
 
         message.textContent = "";
