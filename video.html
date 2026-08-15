@@ -1,81 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Video</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <link rel="stylesheet" href="style.css">
+    <title>Content</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
 </head>
+
 
 <body>
 
-    <header class="site-header">
+<header class="site-header">
 
-        <div class="header-inner">
+    <div class="header-inner">
 
-            <a href="index.html" class="logo">
-                My Video Site
+        <a
+            href="index.html"
+            class="logo"
+            id="siteLogo"
+        >
+            My Video Site
+        </a>
+
+        <nav>
+
+            <a href="index.html">
+                Home
             </a>
 
-            <nav>
-                <a href="index.html">Home</a>
-                <a href="admin.html">Admin</a>
-            </nav>
+        </nav>
 
-        </div>
+    </div>
 
-    </header>
+</header>
 
 
-    <main>
+<main class="single-content">
 
-        <section class="video-page">
+    <div id="contentContainer">
 
-            <h1 id="videoTitle">
-                Loading...
-            </h1>
+        Loading...
 
-
-            <video
-                id="videoPlayer"
-                controls
-                playsinline
-            ></video>
+    </div>
 
 
-            <p
-                id="videoDescription"
-                class="video-description"
-            ></p>
+    <div class="navigation-buttons">
+
+        <button id="previousButton">
+            Previous
+        </button>
+
+        <button id="nextButton">
+            Next
+        </button>
+
+    </div>
+
+</main>
 
 
-            <div class="next-buttons">
+<footer class="site-footer">
 
-                <button id="previousButton">
-                    ← Previous
-                </button>
+    <p id="footerText">
+        © 2026 My Video Site
+    </p>
 
-                <button id="nextButton">
-                    Next →
-                </button>
-
-            </div>
-
-        </section>
-
-    </main>
+</footer>
 
 
-    <footer>
-        <p>© 2026 My Video Site</p>
-    </footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<script src="config.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="config.js"></script>
-    <script src="video.js"></script>
+<script src="video.js"></script>
 
 </body>
+
 </html>
